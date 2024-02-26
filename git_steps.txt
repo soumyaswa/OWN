@@ -1,0 +1,26 @@
+SSH-:  git@github.com:soumyaswa/OWN.git
+
+Have made saperate dirs for both:
+
+After git clone :
+1. git checckout -b <create your branch>
+2. git push -u origin <your branch>
+after modifications or work completion:
+1.git add <file paths> 
+2.git commit -m "message" 
+3.git push  // file will be pushed into the remote branch you have created
+
+Note: For branches that exist for a while, it is important that we keep the branch up to date with the mainline by doing routine master merges
+1.git fetch
+2.git merge origin/main
+
+Merging Changes
+
+Merge branch onto Master
+1.git checkout master
+2.git pull --rebase
+3.git merge origin/<branch name>
+
+Push merged branch
+1.git push
+
