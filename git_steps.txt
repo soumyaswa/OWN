@@ -17,7 +17,7 @@ Note: For branches that exist for a while, it is important that we keep the bran
 Merging Changes
 
 Merge branch onto Master
-1.git checkout master
+1.git checkout main
 2.git pull --rebase
 3.git merge origin/<branch name>
 
