@@ -3,7 +3,7 @@ SSH-:  git@github.com:soumyaswa/OWN.git
 Have made saperate dirs for both:
 
 After git clone :
-1. git checckout -b <create your branch>
+1. git checkout -b <create your branch>
 2. git push -u origin <your branch>
 after modifications or work completion:
 1.git add <file paths> 
