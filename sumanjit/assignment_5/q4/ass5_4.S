@@ -18,17 +18,12 @@ RVTEST_CODE_BEGIN
 
   ass_5_2:
       	la x5,inp_data
-     	li x10,0x11110000
-     	li x11,0x12121111
 
      .rept 2
-        addi x10,x10,0x111 	// x10--> write operand
-	sw x10,12(x5) 		// x10--> Read operand, store x10 value to (x5+12) address //STORE RAW
-	lw x12,12(x5)   	// load data x12 to check wherther getting updated value or not //Followed by LOAD
-        
-	addi x11,x11,0x100 	// x11--> write operand
-	sw x11,0(x5) 		// x11--> Read operand, store x10 value to (x5+12) address //STORE RAW
-	lw x13,0(x5)   		// load data x13 to check wherther getting updated value or not //Followed by LOAD
+		lw x12,0(x5)   		// load data x12 to check wherther getting updated value or not //LOAD x12--> Read Operand
+		sw x12,4(x5) 		// x12--> Write operand, store x12 value to (x5+0) address //STORE RAW
+		lw x13,4(x5)   		// Cross Check The Updated Write Value
+		addi x5,x5,8		// Increment The Load Address Location
      .endr 
    
   TEST_PASSFAIL
@@ -59,12 +54,5 @@ inp_data:
 
  
 RVTEST_DATA_END
-
-
-
-
-
-
-
 
 
