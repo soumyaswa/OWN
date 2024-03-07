@@ -17,24 +17,9 @@ RVTEST_CODE_BEGIN
    li x1, 20
 
    la x2, inp_data
-
-jump_and_link_reg_inst:
-   la x5, code_2
-   jalr x1, x5, 0x0
-   nop
+   j jump_and_link_reg_inst
 
 code_1:
-   li x7, 13
-   li x8, 17
-   addi x7, x7, 4
-   addi x8, x8, 2
-   add x9, x8, x7
-   sub x10, x8, x7
-   sw x5, 0x0(x2)
-   nop
-   j exit
-
-code_2:
    li x9, 19
    li x8, 23
    addi x9, x9, 4
@@ -43,6 +28,22 @@ code_2:
    sub x9, x8, x9
    nop
    jr x1
+
+jump_and_link_reg_inst:
+   la x5, code_1
+   jalr x1, x5, 0x0
+   nop
+
+   li x7, 13
+   li x8, 17
+   addi x7, x7, 4
+   addi x8, x8, 2
+   add x9, x8, x7
+   sub x10, x8, x7
+   sw x5, 0x0(x2)
+   la x5, code_1
+   jalr x1, x5, 0x0
+   nop
 
 exit:
    nop

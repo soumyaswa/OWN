@@ -23,18 +23,6 @@ jump_and_link_reg_inst:
    jalr x0, x5, 0x0
    nop
 
-code_1:
-   li x7, 13
-   li x8, 17
-   addi x7, x7, 4
-   addi x8, x8, 2
-   add x9, x8, x7
-   sub x10, x8, x7
-   sw x5, 0x0(x2)
-   la x5, code_2
-   jalr x0, x5
-   nop
-
 code_2:
    c.li x9, 19
    c.li x8, 23
@@ -46,6 +34,18 @@ code_2:
    c.sw x8, 0x0(x10)
    la x1, exit
    c.jalr x1
+   nop
+
+code_1:
+   li x7, 13
+   li x8, 17
+   addi x7, x7, 4
+   addi x8, x8, 2
+   add x9, x8, x7
+   sub x10, x8, x7
+   sw x5, 0x0(x2)
+   la x5, code_2
+   jalr x0, x5
    nop
 
 exit:

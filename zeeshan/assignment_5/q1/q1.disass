@@ -34,10 +34,10 @@ Disassembly of section .text.init:
     8000003a:	0000100f          	fence.i
     8000003e:	00020fb7          	lui	t6,0x20
     80000042:	00000f17          	auipc	t5,0x0
-    80000046:	14ef0f13          	add	t5,t5,334 # 80000190 <begin_signature>
+    80000046:	18ef0f13          	add	t5,t5,398 # 800001d0 <begin_signature>
     8000004a:	01efa023          	sw	t5,0(t6) # 20000 <_start-0x7ffe0000>
     8000004e:	00000f17          	auipc	t5,0x0
-    80000052:	192f0f13          	add	t5,t5,402 # 800001e0 <end_signature>
+    80000052:	1d2f0f13          	add	t5,t5,466 # 80000220 <end_signature>
     80000056:	01efa423          	sw	t5,8(t6)
     8000005a:	01efa623          	sw	t5,12(t6)
 
@@ -109,136 +109,127 @@ Disassembly of section .text.init:
     80000110:	418d                	li	gp,3
     80000112:	40d1                	li	ra,20
     80000114:	00000117          	auipc	sp,0x0
-    80000118:	07c10113          	add	sp,sp,124 # 80000190 <begin_signature>
+    80000118:	0bc10113          	add	sp,sp,188 # 800001d0 <begin_signature>
 
 000000008000011c <conditional_branch>:
     8000011c:	4282                	lw	t0,0(sp)
     8000011e:	4312                	lw	t1,4(sp)
+    80000120:	4385                	li	t2,1
+    80000122:	442d                	li	s0,11
 
-0000000080000120 <branch_equal_to>:
-    80000120:	04628163          	beq	t0,t1,80000162 <exit>
+0000000080000124 <branch_equal_to>:
+    80000124:	06628c63          	beq	t0,t1,8000019c <exit>
+    80000128:	0395                	add	t2,t2,5
 
-0000000080000124 <branch_not_equal>:
-    80000124:	00629263          	bne	t0,t1,80000128 <branch_less_than>
+000000008000012a <branch_not_equal>:
+    8000012a:	00629363          	bne	t0,t1,80000130 <branch_less_than>
+    8000012e:	93a2                	add	t2,t2,s0
 
-0000000080000128 <branch_less_than>:
-    80000128:	0062c263          	blt	t0,t1,8000012c <branch_great_equal>
+0000000080000130 <branch_less_than>:
+    80000130:	0062c463          	blt	t0,t1,80000138 <branch_great_equal>
+    80000134:	40740433          	sub	s0,s0,t2
 
-000000008000012c <branch_great_equal>:
-    8000012c:	0262db63          	bge	t0,t1,80000162 <exit>
+0000000080000138 <branch_great_equal>:
+    80000138:	0662d263          	bge	t0,t1,8000019c <exit>
+    8000013c:	007444b3          	xor	s1,s0,t2
 
-0000000080000130 <branch_less_unsigned>:
-    80000130:	0062e263          	bltu	t0,t1,80000134 <branch_great_unsigned>
+0000000080000140 <branch_less_unsigned>:
+    80000140:	0062e363          	bltu	t0,t1,80000146 <branch_great_unsigned>
+    80000144:	048a                	sll	s1,s1,0x2
 
-0000000080000134 <branch_great_unsigned>:
-    80000134:	0262f763          	bgeu	t0,t1,80000162 <exit>
+0000000080000146 <branch_great_unsigned>:
+    80000146:	0462fb63          	bgeu	t0,t1,8000019c <exit>
+    8000014a:	31248493          	add	s1,s1,786
 
-0000000080000138 <branch_equal_zero>:
-    80000138:	02028563          	beqz	t0,80000162 <exit>
+000000008000014e <branch_equal_zero>:
+    8000014e:	04028763          	beqz	t0,8000019c <exit>
+    80000152:	0395                	add	t2,t2,5
 
-000000008000013c <branch_not_zero>:
-    8000013c:	00031263          	bnez	t1,80000140 <branch_less_zero>
+0000000080000154 <branch_not_zero>:
+    80000154:	00031363          	bnez	t1,8000015a <branch_less_zero>
+    80000158:	8cc1                	or	s1,s1,s0
 
-0000000080000140 <branch_less_zero>:
-    80000140:	0202c163          	bltz	t0,80000162 <exit>
+000000008000015a <branch_less_zero>:
+    8000015a:	0402c163          	bltz	t0,8000019c <exit>
+    8000015e:	0013e393          	or	t2,t2,1
 
-0000000080000144 <branch_great_eq_zero>:
-    80000144:	00035f63          	bgez	t1,80000162 <exit>
+0000000080000162 <branch_great_eq_zero>:
+    80000162:	02035d63          	bgez	t1,8000019c <exit>
+    80000166:	007474b3          	and	s1,s0,t2
 
-0000000080000148 <branch_great_than>:
-    80000148:	00534d63          	blt	t1,t0,80000162 <exit>
+000000008000016a <branch_great_than>:
+    8000016a:	02534963          	blt	t1,t0,8000019c <exit>
+    8000016e:	40748433          	sub	s0,s1,t2
 
-000000008000014c <branch_great_than_unsigned>:
-    8000014c:	00536b63          	bltu	t1,t0,80000162 <exit>
+0000000080000172 <branch_great_than_unsigned>:
+    80000172:	02536563          	bltu	t1,t0,8000019c <exit>
+    80000176:	00748433          	add	s0,s1,t2
 
-0000000080000150 <branch_great_than_zero>:
-    80000150:	00604963          	bgtz	t1,80000162 <exit>
+000000008000017a <branch_great_than_zero>:
+    8000017a:	02604163          	bgtz	t1,8000019c <exit>
+    8000017e:	0023d413          	srl	s0,t2,0x2
 
-0000000080000154 <branch_less_eq>:
-    80000154:	00535063          	bge	t1,t0,80000154 <branch_less_eq>
+0000000080000182 <branch_less_eq>:
+    80000182:	00535063          	bge	t1,t0,80000182 <branch_less_eq>
+    80000186:	00b3f413          	and	s0,t2,11
 
-0000000080000158 <branch_less_eq_unsigned>:
-    80000158:	00537263          	bgeu	t1,t0,8000015c <branch_less_eq_zero>
+000000008000018a <branch_less_eq_unsigned>:
+    8000018a:	00537463          	bgeu	t1,t0,80000192 <branch_less_eq_zero>
+    8000018e:	0023c513          	xor	a0,t2,2
 
-000000008000015c <branch_less_eq_zero>:
-    8000015c:	00505363          	blez	t0,80000162 <exit>
-    80000160:	4385                	li	t2,1
+0000000080000192 <branch_less_eq_zero>:
+    80000192:	00505563          	blez	t0,8000019c <exit>
+    80000196:	40a455b3          	sra	a1,s0,a0
+    8000019a:	4385                	li	t2,1
 
-0000000080000162 <exit>:
-    80000162:	00301e63          	bne	zero,gp,8000017e <pass>
+000000008000019c <exit>:
+    8000019c:	00301e63          	bne	zero,gp,800001b8 <pass>
 
-0000000080000166 <fail>:
-    80000166:	0ff0000f          	fence
-    8000016a:	00018063          	beqz	gp,8000016a <fail+0x4>
-    8000016e:	0186                	sll	gp,gp,0x1
-    80000170:	0011e193          	or	gp,gp,1
-    80000174:	05d00893          	li	a7,93
-    80000178:	850e                	mv	a0,gp
-    8000017a:	00000073          	ecall
+00000000800001a0 <fail>:
+    800001a0:	0ff0000f          	fence
+    800001a4:	00018063          	beqz	gp,800001a4 <fail+0x4>
+    800001a8:	0186                	sll	gp,gp,0x1
+    800001aa:	0011e193          	or	gp,gp,1
+    800001ae:	05d00893          	li	a7,93
+    800001b2:	850e                	mv	a0,gp
+    800001b4:	00000073          	ecall
 
-000000008000017e <pass>:
-    8000017e:	0ff0000f          	fence
-    80000182:	4185                	li	gp,1
-    80000184:	05d00893          	li	a7,93
-    80000188:	4501                	li	a0,0
-    8000018a:	00000073          	ecall
-    8000018e:	0000                	unimp
+00000000800001b8 <pass>:
+    800001b8:	0ff0000f          	fence
+    800001bc:	4185                	li	gp,1
+    800001be:	05d00893          	li	a7,93
+    800001c2:	4501                	li	a0,0
+    800001c4:	00000073          	ecall
+    800001c8:	0000                	unimp
+    800001ca:	00000013          	nop
+    800001ce:	0001                	nop
 
-0000000080000190 <begin_signature>:
-    80000190:	7ae1                	lui	s5,0xffff8
-    80000192:	3f94                	fld	fa3,56(a5)
-    80000194:	51ec                	lw	a1,100(a1)
-    80000196:	4008                	lw	a0,0(s0)
-    80000198:	851f 3feb 5c29      	.byte	0x1f, 0x85, 0xeb, 0x3f, 0x29, 0x5c
-    8000019e:	40df 0000 4130      	.byte	0xdf, 0x40, 0x00, 0x00, 0x30, 0x41
-    800001a4:	851f 414f eb85      	.byte	0x1f, 0x85, 0x4f, 0x41, 0x85, 0xeb
-    800001aa:	3333428b          	.4byte	0x3333428b
-    800001ae:	c28f4187          	.4byte	0xc28f4187
-    800001b2:	41b1                	li	gp,12
-    800001b4:	4048f5c3          	fmadd.s	fa1,fa7,ft4,fs0
+00000000800001d0 <begin_signature>:
+    800001d0:	7ae1                	lui	s5,0xffff8
+    800001d2:	3f94                	fld	fa3,56(a5)
+    800001d4:	51ec                	lw	a1,100(a1)
+    800001d6:	4008                	lw	a0,0(s0)
+    800001d8:	851f 3feb 5c29      	.byte	0x1f, 0x85, 0xeb, 0x3f, 0x29, 0x5c
+    800001de:	40df 0000 4130      	.byte	0xdf, 0x40, 0x00, 0x00, 0x30, 0x41
+    800001e4:	851f 414f eb85      	.byte	0x1f, 0x85, 0x4f, 0x41, 0x85, 0xeb
+    800001ea:	3333428b          	.4byte	0x3333428b
+    800001ee:	c28f4187          	.4byte	0xc28f4187
+    800001f2:	41b1                	li	gp,12
+    800001f4:	4048f5c3          	fmadd.s	fa1,fa7,ft4,fs0
 
-00000000800001b8 <float_inp>:
-    800001b8:	7ae1                	lui	s5,0xffff8
-    800001ba:	3f94                	fld	fa3,56(a5)
-    800001bc:	51ec                	lw	a1,100(a1)
-    800001be:	4008                	lw	a0,0(s0)
-    800001c0:	851f 3feb 5c29      	.byte	0x1f, 0x85, 0xeb, 0x3f, 0x29, 0x5c
-    800001c6:	40df 0000 4130      	.byte	0xdf, 0x40, 0x00, 0x00, 0x30, 0x41
-    800001cc:	851f 414f eb85      	.byte	0x1f, 0x85, 0x4f, 0x41, 0x85, 0xeb
-    800001d2:	3333428b          	.4byte	0x3333428b
-    800001d6:	c28f4187          	.4byte	0xc28f4187
-    800001da:	41b1                	li	gp,12
-    800001dc:	4048f5c3          	fmadd.s	fa1,fa7,ft4,fs0
+00000000800001f8 <float_inp>:
+    800001f8:	7ae1                	lui	s5,0xffff8
+    800001fa:	3f94                	fld	fa3,56(a5)
+    800001fc:	51ec                	lw	a1,100(a1)
+    800001fe:	4008                	lw	a0,0(s0)
+    80000200:	851f 3feb 5c29      	.byte	0x1f, 0x85, 0xeb, 0x3f, 0x29, 0x5c
+    80000206:	40df 0000 4130      	.byte	0xdf, 0x40, 0x00, 0x00, 0x30, 0x41
+    8000020c:	851f 414f eb85      	.byte	0x1f, 0x85, 0x4f, 0x41, 0x85, 0xeb
+    80000212:	3333428b          	.4byte	0x3333428b
+    80000216:	c28f4187          	.4byte	0xc28f4187
+    8000021a:	41b1                	li	gp,12
+    8000021c:	4048f5c3          	fmadd.s	fa1,fa7,ft4,fs0
 
-00000000800001e0 <end_signature>:
-    800001e0:	0000                	unimp
-    800001e2:	0000                	unimp
-    800001e4:	0000                	unimp
-    800001e6:	0000                	unimp
-    800001e8:	0000                	unimp
-    800001ea:	0000                	unimp
-    800001ec:	0000                	unimp
-    800001ee:	0000                	unimp
-    800001f0:	0000                	unimp
-    800001f2:	0000                	unimp
-    800001f4:	0000                	unimp
-    800001f6:	0000                	unimp
-    800001f8:	0000                	unimp
-    800001fa:	0000                	unimp
-    800001fc:	0000                	unimp
-    800001fe:	0000                	unimp
-    80000200:	0000                	unimp
-    80000202:	0000                	unimp
-    80000204:	0000                	unimp
-    80000206:	0000                	unimp
-    80000208:	0000                	unimp
-    8000020a:	0000                	unimp
-    8000020c:	0000                	unimp
-    8000020e:	0000                	unimp
-    80000210:	0000                	unimp
-    80000212:	0000                	unimp
-    80000214:	0000                	unimp
-    80000216:	0000                	unimp
-    80000218:	0000                	unimp
-    8000021a:	0000                	unimp
-    8000021c:	0000                	unimp
+0000000080000220 <end_signature>:
+    80000220:	0000                	unimp
+    80000222:	0000                	unimp
