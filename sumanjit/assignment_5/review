@@ -1,0 +1,4 @@
+q1:  correct
+q2:  try to add more instructions or rept more time
+q3:  correct
+q4:  use this concept and develope this condition : Sequence of store/load to the same cache lines (load only pick up correct store data).  Same as RAW but more than just 1.
