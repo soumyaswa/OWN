@@ -21,12 +21,16 @@ RVTEST_CODE_BEGIN
      	li x10,0x11221122
 	li x11,0xABABABAB
 
-     .rept 2
+     .rept 5
 	lw x12,12(x5) 	// load data x12=0x06627912
 	sw x10,12(x5) 	// store 0x12121212 to (x5+12) address
 	lw x13,12(x5)   // load data x13 to check wherther getting updated value or not // TESTPASS
-        
         addi x10,x10,10
+        
+	lw x14,0(x5) 	// load data x12=0x06627912
+	sw x11,0(x5) 	// store 0x12121212 to (x5+12) address
+	lw x15,0(x5)   // load data x13 to check wherther getting updated value or not // TESTPASS
+        addi x11,x11,2
     .endr 
    
   TEST_PASSFAIL
@@ -57,6 +61,29 @@ inp_data:
 
  
 RVTEST_DATA_END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
