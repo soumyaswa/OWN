@@ -1,0 +1,26 @@
+modify the necessary changes as i had mention earlier
+
+for question 2:
+review:
+--->no need to code for accessing all the boundaries, you can simple do for c32 lable and pur repts befor that.
+    if you dont know to put repeats, search once if didn't get idea let me know.
+---> in this way also its correct, but no need of this much of implementation.
+// or //
+----> without using rept just put 4 instrs insteed of 3 in c32 and arrange the offset accordingly ,so that in a single run it will access these all cache lines
+ 
+ 
+for question 3:
+review:
+----> code is correct 
+----> modify the the div instr with enabling RNE mode.
+ 
+for question 4:
+----> not as per the question: interleaved means after every load and store you have to use div instruction(with RNE enable).
+----> additional concept you can add is insteed of directly giving floating point values , use floating point register for the conversion of hex(interger values) to floating point.
+ 
+for question 5:
+---->modify for the interleaved condtion only ,otherwise its correct.
+
+
+for question 7:
+----> its correct, but try to implement with stack expansion and deletion concept.
