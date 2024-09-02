@@ -7,67 +7,18 @@ RVTEST_RV32U
 RVTEST_CODE_BEGIN
 
   li gp, 3
-  li x1, 20
-  la x31, inp_data 
-test_1: 
-# back to back loads
-.rept 4
-  lb x2, 8(x31)
- # lb x3, 10(x31)
-  lh x4, 2(x31)
- # lh x5, 4(x31)
-  lw x6, 0(x31)
-#  lw x7, 4(x31)
-  ld x8, 8(x31)
- # ld x9, 16(x31)
-  .endr
-test_2 :
-# back to back store
-  sb x2, 4(x31)
-  sh x4, 6(x31)
-  sh x4, 8(x31)
-  sw x6, 0(x31)
-  sw x6, 4(x31)
-  sd x8, 0(x31)
-  sd x8, 8(x31)
-  
-test_3 :
-# back to back load with store to same addr
-  lw x2, 4(x31)
-  lw x2, 8(x31)
-  addi x5,x2,10
-  sw x5, 8(x31)
-  
-test_4 :
-# back to back store with load to same addr
-  sw x2, 8(x31)
-  sw x6, 8(x31)
-  lw x4, 8(x31)
-  addi x5, x4, 1
-  sw x5, 8(x31)
-  
-test_5 :
-# load overlaping aaddr
-  lb x3, 8(x31)
-  lh x5, 8(x31)
-  lw x7, 8(x31)
-  ld x9, 8(x31)
-  
-test_6 :
-# store overlaping addr
-  sb x2, 8(x31)
-  sh x4, 8(x31)
-  sw x6, 8(x31)
-  sd x8, 8(x31)
-  
-test_7 :
-# load and store overlaping
-  sd x8, 0(x31)
-  lw x2, 4(x31)
-  addi x5,x2,10
-  sd x5, 0(x31)
-  
-  
+ li x1,0
+ li x4,0
+ li x2,5
+ loop:
+ addi x1,x1,1
+ beq x1,x2, exit
+ 
+
+ addi x4,x4,10
+ bne x1,x2,loop
+  exit:
+  nop
   TEST_PASSFAIL
 
 RVTEST_CODE_END
