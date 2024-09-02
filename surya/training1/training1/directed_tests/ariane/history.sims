@@ -1,0 +1,4 @@
+Mon Aug 21 18:21:28 IST 2023 sims -sys=manycore -msm_run -x_tiles=1 -y_tiles=2 hello_world.c -ariane -rtl_timeout 10000000 
+Mon Aug 21 18:31:11 IST 2023 sims -sys=manycore -msm_run -x_tiles=1 -y_tiles=2 hello_world_tic_lock.c -ariane -rtl_timeout 10000000 
+Tue Aug 22 14:15:42 IST 2023 sims -sys=manycore -msm_run -x_tiles=1 -y_tiles=2 ticket_lock.c -ariane -rtl_timeout 10000000 
+Tue Aug 22 14:16:14 IST 2023 sims -sys=manycore -msm_run -x_tiles=1 -y_tiles=2 ticket_lock.c -ariane -rtl_timeout 10000000 

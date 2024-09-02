@@ -1,0 +1,1 @@
+/usr/local/lib/gcc/riscv64-unknown-elf/12.2.0/../../../../riscv64-unknown-elf/bin/ld: warning: diag.exe has a LOAD segment with RWX permissions
