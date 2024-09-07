@@ -5,24 +5,21 @@
 
 RVTEST_RV32U
 RVTEST_CODE_BEGIN
-
   li gp, 3
-  li x1, 20
-  la x31, inp_data 
-test_case_1: 
-# back to back loads
 
-.rept 4
-  lb x2, 8(x31)
- # lb x3, 10(x31)
-  lh x4, 2(x31)
-#  lh x5, 4(x31)
-  lw x6, 0(x31)
- # lw x7, 4(x31)
-  ld x8, 8(x31)
-#  ld x9, 16(x31)
- .endr 
-  
+#OVERLAPPING stores
+ 
+test_case_6:
+
+  li x2, 8 
+  li x4, 20
+  sh x2, 2(x5) 
+  sh x4, 2(x5)
+  sw x2, 4(x5) 
+  sw x4, 4(x5)
+  sd x2, 8(x5) 
+  sd x4, 8(x5)
+   
   TEST_PASSFAIL
 
 RVTEST_CODE_END
@@ -76,11 +73,3 @@ inp_data:
   .word 0x28cb8c74
 
 RVTEST_DATA_END
-
-
-
-
-
-
-
-

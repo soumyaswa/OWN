@@ -1,3 +1,12 @@
+//**********************************************************************
+//    Originator: Surya
+//    assignment : 2
+//    question no : 1 
+//    Born-on Date: 04-09-2024
+//**********************************************************************
+//    Description: RAW,WAR,WAW Hazards
+//**********************************************************************
+
 # See LICENSE.vyoma for more details 
 
 #include "test_macros.h"  // including the test_macros.h file 
@@ -6,7 +15,7 @@
 RVTEST_RV32U              // 32-bit RISC-V USER Mode 
 RVTEST_CODE_BEGIN         // beginning of the code section
 
-// RAW,WAR,WAW Hazard
+// RAW,WAR,WAW Hazards
 
   li gp, 1                // loading the value 1 into the gp
   li x1, 2                // loading the value 2 into the reg x1

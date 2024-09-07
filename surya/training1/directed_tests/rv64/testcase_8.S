@@ -1,10 +1,10 @@
 //**********************************************************************
 //    Originator: Surya
 //    assignment : 2
-//    question no : 5
-//    Born-on Date: 04-09-2024
+//    question no : 8 
+//    Born-on Date: 06-09-2024
 //**********************************************************************
-//    Description: Call (jalr with rd != x0) and matching return in straight line code (no loops) 
+//    Description: One Loop with varying number of instructions inside the loop. number of instructions varying from 1 to 64
 //**********************************************************************
 
 # See LICENSE.vyoma for more details
@@ -15,36 +15,31 @@
 RVTEST_RV64U                       // 64-bit RISC-V USER Mode 
 RVTEST_CODE_BEGIN                  // beginning of the code section
 
-//Call (jalr with rd != x0) and matching return in straight line code (no loops) 
+// One Loop with varying number of instructions inside the loop. number of instructions varying from 1 to 64
+   li gp,3                         // load the value 3 into the gp
+   la x1,inp_data                  // load the inp_data into the reg x1
+   la x2,inp_data                  // load the inp_data into the reg x2
+   li x4,0                         // load the value 0 into the reg x4
+   li x5,1                         // load the value 1 into the reg x5
+ 
+loop:                              // name of the label "loop"
+   beq x4,x5,exit                  // it will compare x4,x5 if they are equal means, it will  goto exit
+ 
+   .rept 64                        // it is a repeat statement, it will repeat 64 times
+   add x10,x1,x2                   // add the reg x1,x2 and store the result into the reg x10
+   mul x11,x1,x2                   // mul the reg x1,x2 and store the result into the reg x11
+   and x12,x1,x2                   // and the reg x1,x2 and store the result into the reg x12
+   or x13,x1,x2                    // or the reg x1,x2 and store the result into the reg x13
+   xor x14,x1,x2                   // xor the reg x1,x2 and store the result into the reg x14
+   .endr                           // end of the repeat statement
+ 
+   addi x4,x4,1                    // add the value 1 to x4 and store the result into the reg x4
+   j loop                          // jump into the loop label
 
-  li gp, 3                         // load the value 3 into the gp reg
-# mem:                             // name of the label "mem"
-#  li x20,0x80002068               // load the mem address into the reg x20
-#  lw x21,0(x20)                   // load word the the address of 0(x20) into reg x21
-  
-  li x11,30                        // load the value 30 into the reg x11
-  li x12, 30                       // load the value 30 into the reg x12
-  
-start:                             // name of the label "start"
-  
-  la x2,function                   // load the address of the function label  into the reg x2
-  
-  jalr x1,0(x2)                    // jumps into the address 0(x2) and store the return address into the reg x1
-  
-  li x10, 10                       // load the value 10 into the reg x10
-  beq x11,x12,exit                 // comparing the two branches x11 and x12 if it is equal,then go to exit
-  addi x10,x10,20                  // add the values in x10 and value 20,then result is placed into the reg x10
-
-function:                          // name of the label "function"
-
-  li x4, 2                         // load the value 2 into the reg x4
-  li x5, 3                         // load the value 3 into the reg x5
-  jalr x5, 0(x1)                   // jumps into the address 0(x1) and store the return address into the reg x5
-        
 exit:                              // name of the label "exit"
- nop                               // it will perform  the addi x0,x0,0 || pseudo instruction
-  
-  TEST_PASSFAIL                    // Checks the test is pass or fail
+   nop                             // it is a pseudo inst, performs addi x0,x0,0
+
+TEST_PASSFAIL                      // Checks the test is pass or fail
  
 RVTEST_CODE_END                    // end of the code section
  
@@ -86,3 +81,6 @@ inp_data:
   .word 0x3392ec72                 // 8000_2074
  
 RVTEST_DATA_END                    // end of the data section
+
+
+

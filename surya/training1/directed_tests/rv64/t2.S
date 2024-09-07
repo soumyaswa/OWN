@@ -6,23 +6,27 @@
 RVTEST_RV32U
 RVTEST_CODE_BEGIN
 
+# back to back stores
   li gp, 3
-  li x1, 20
-  la x31, inp_data 
-test_case_1: 
-# back to back loads
-
-.rept 4
-  lb x2, 8(x31)
- # lb x3, 10(x31)
-  lh x4, 2(x31)
-#  lh x5, 4(x31)
-  lw x6, 0(x31)
- # lw x7, 4(x31)
-  ld x8, 8(x31)
-#  ld x9, 16(x31)
- .endr 
+  li x2, 8 
+  li x4, 20
+test_case_2:
+  sb x2, 0(x5) 
+  sb x4, 1(x5)
+  addi x2,x2,1
+  addi x4,x4,1
+  sh x2, 2(x5) 
+  sh x4, 4(x5)
+  addi x2,x2,-1
+  addi x4,x4,-2
+  sw x2, 8(x5) 
+  sw x4, 12(x5)
+  andi x2,x2,1
+  ori x4,x4,1
+  sd x2, 16(x5) 
+  sd x4, 24(x5)
   
+   
   TEST_PASSFAIL
 
 RVTEST_CODE_END
@@ -76,11 +80,3 @@ inp_data:
   .word 0x28cb8c74
 
 RVTEST_DATA_END
-
-
-
-
-
-
-
-

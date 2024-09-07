@@ -1,11 +1,12 @@
 //**********************************************************************
 //    Originator: Surya
 //    assignment : 2
-//    question no : 5
-//    Born-on Date: 04-09-2024
+//    question no : 10 
+//    Born-on Date: 06-09-2024
 //**********************************************************************
-//    Description: Call (jalr with rd != x0) and matching return in straight line code (no loops) 
+//    Indirect function calls using jalr
 //**********************************************************************
+
 
 # See LICENSE.vyoma for more details
  
@@ -15,36 +16,38 @@
 RVTEST_RV64U                       // 64-bit RISC-V USER Mode 
 RVTEST_CODE_BEGIN                  // beginning of the code section
 
-//Call (jalr with rd != x0) and matching return in straight line code (no loops) 
+// Indirect function calls using jalr
 
-  li gp, 3                         // load the value 3 into the gp reg
-# mem:                             // name of the label "mem"
-#  li x20,0x80002068               // load the mem address into the reg x20
-#  lw x21,0(x20)                   // load word the the address of 0(x20) into reg x21
-  
-  li x11,30                        // load the value 30 into the reg x11
-  li x12, 30                       // load the value 30 into the reg x12
-  
+   li gp, 3                        // load the value 3 into gp
+   la x6,inp_data                  // load the inp_data into reg x6
+      
 start:                             // name of the label "start"
-  
-  la x2,function                   // load the address of the function label  into the reg x2
-  
-  jalr x1,0(x2)                    // jumps into the address 0(x2) and store the return address into the reg x1
-  
-  li x10, 10                       // load the value 10 into the reg x10
-  beq x11,x12,exit                 // comparing the two branches x11 and x12 if it is equal,then go to exit
-  addi x10,x10,20                  // add the values in x10 and value 20,then result is placed into the reg x10
-
-function:                          // name of the label "function"
-
-  li x4, 2                         // load the value 2 into the reg x4
-  li x5, 3                         // load the value 3 into the reg x5
-  jalr x5, 0(x1)                   // jumps into the address 0(x1) and store the return address into the reg x5
-        
+    
+    la x4, f1                      // load the f1 label address into the reg x4
+    jalr x1, x4, 0                 // jump into the address of 0(x4) and place the return address into the reg x1
+    
+    li x13, 10                     // load the value 10 into the reg x13
+    
+    la x8, f2                      // load the f2 label address into the reg x8
+    jalr x1, x8, 0                 // jump into the address of 0(x8) and place the return address into the reg x1
+                    
+    li x14, 20                     // load the value 20 into the reg x14
+    bne x4,x8,exit                 // it will compare the x4,x8 regs if it is not equal, then goto exit
+    
+f1:                                // name of the label "f1"
+    li x11, 42                     // load the value 42 into the reg x11
+    sw x2, 0(x6)                   // store the address 0(x6) into  the reg x2
+    jalr x5,x1,0                   // jump into the address of 0(x1) and place the return address into the reg x5
+             
+f2:                                // name of the label "f2"
+    li x11, 84                     // load the value 84 into the reg x11
+    sw x12, 0(x6)                  // store the address 0(x6) into  the reg x12
+    jalr x5,x1,0                   // jump into the address of 0(x1) and place the return address into the reg x5
+    
 exit:                              // name of the label "exit"
- nop                               // it will perform  the addi x0,x0,0 || pseudo instruction
-  
-  TEST_PASSFAIL                    // Checks the test is pass or fail
+    nop                            // it is a pseudo inst, performs addi x0,x0,0
+    
+     TEST_PASSFAIL                 // Checks the test is pass or fail
  
 RVTEST_CODE_END                    // end of the code section
  
